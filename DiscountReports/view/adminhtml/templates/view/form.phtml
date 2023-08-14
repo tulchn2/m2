@@ -1,0 +1,148 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+/**
+ * @var \Ecommage\DiscountReports\Block\Adminhtml\View\Form $block
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+    $products = $block->getProducts();
+    $shipping = $block->getShipping();
+
+    $summaryOriginalPrice = 0;
+    $summaryCatalogRule = 0;
+    $summarySalsRule = 0;
+    
+?>
+<?= $block->getChildHtml('order_info'); ?>
+<section class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml(__('Discount Items')); ?></span>
+    </div>
+    <div class="admin__table-wrapper">
+    <table class="data-table admin__table-primary order-shipment-table">
+        <thead>
+            <tr class="headings">
+                <th class="col col-product_id"><span><?= $block->escapeHtml(__('Product ID')) ?></span></th>
+                <th class="col col-product"><span><?= $block->escapeHtml(__('Product')) ?></span></th>
+                <th class="col col-qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
+                <th class="col col-qty"><span><?= $block->escapeHtml(__('Original Price')) ?></span></th>
+                <th class="col col-qty"><span><?= $block->escapeHtml(__('Discount(Catalog Price Rule)')) ?></span></th>
+                <th class="col col-qty"><span><?= $block->escapeHtml(__('Discount(Cart Price Rule)')) ?></span></th>
+                <th class="col col-qty"><span><?= $block->escapeHtml(__('Discount Amount')) ?></span></th>
+                <th class="col col-qty"><span><?= $block->escapeHtml(__('Row Total')) ?></span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($products as $product): ?>
+                <?php $catalogrule = $block->getCatalogruleProduct($product->getId()) ?>
+                <?php $salesrule = $block->getSalesruleProduct($product->getId()) ?>
+                <?php
+                    $totalCatalogRule = 0;
+                    $totalSaleRule = 0;
+                    $block->setrulePrice($catalogrule[0]['original_price'])
+                ?>
+                <tr>
+                    <td>
+                        <?= /* @noEscape */  $product->getId() ?>
+                    </td>
+                    <td>
+                        <?= $block->escapeHtml($product->getName()) ?></br/>
+                        <?= $block->escapeHtml(__('SKU: %1', $product->getSku())) ?>
+                    </td>
+                    <td>
+                        <?= $block->escapeHtml(__('Ordered: %1', $catalogrule[0]['qty_ordered'])) ?>
+                    </td>
+                    <td>
+                            <?php
+                                $originalPrice = $catalogrule[0]['original_price'] * $catalogrule[0]['qty_ordered'];
+                                $summaryOriginalPrice += $originalPrice;
+                            ?>
+                        <?= /* @noEscape */ $block->fromatPrice($originalPrice) ?>
+                    </td>
+                    <td>
+                        <?php foreach ($catalogrule as $rule): ?>
+                            <?php
+                                $discount = $block->productPriceCalc($rule);
+                                $totalCatalogRule += $discount;
+                                $summaryCatalogRule += $discount;
+                            ?>
+                            <?= /* @noEscape */  $rule['rule_name'] .': -'. $block->fromatPrice($discount) ?><br/>
+                        <?php endforeach; ?>
+                    </td>
+                    <td>
+                        <?php foreach ($salesrule as $rule): ?>
+                            <?php
+                                $totalSaleRule += $rule['discount'];
+                                $summarySalsRule += $rule['discount'];
+                            ?>
+                            <?= /* @noEscape */  $rule['rule_name'] .': -'.$block->fromatPrice($rule['discount']) ?>
+                            <br/>
+                        <?php endforeach; ?>
+                    </td>
+                    <td>
+                        <?= $block->escapeHtml(__('Catalog Price Rule: -%1', $block->fromatPrice($totalCatalogRule))) ?>
+                        <br/>
+                        <?= $block->escapeHtml(__('Cart Price Rule: -%1', $block->fromatPrice($totalSaleRule))) ?>
+                        <?php if (isset($shipping['shipping_discount_amount'])): ?>
+                            <br/>
+                            <?= $block->escapeHtml(__('%1: -', $shipping['shipping_description'])) ?>
+                            <?= /* @noEscape */ $block->fromatPrice($shipping['shipping_discount_amount']) ?>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php $priceRow = $catalogrule[0]['original_price']- $totalCatalogRule - $totalSaleRule; ?>
+                        <?= /* @noEscape */ $block->fromatPrice($priceRow) ?>
+                    </td>
+                    
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+</section>
+<section class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml(__('summary amount')); ?></span>
+    </div>
+    <div class="admin__table-wrapper">
+        <table class="data-table admin__table-primary order-shipment-table">
+            <thead>
+                <tr class="headings">
+                    <th class="col col-qty"><span><?= $block->escapeHtml(__('Original Price')) ?></span></th>
+                    <th class="col col-qty"><span>
+                        <?= $block->escapeHtml(__('Discount(Catalog Price Rule)')) ?>
+                    </span></th>
+                    <th class="col col-qty"><span><?= $block->escapeHtml(__('Discount(Cart Price Rule)')) ?></span></th>
+                    <th class="col col-qty"><span><?= $block->escapeHtml(__('Discount Amount')) ?></span></th>
+                    <th class="col col-qty"><span><?= $block->escapeHtml(__('Row Total')) ?></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <?= /* @noEscape */  $block->fromatPrice($summaryOriginalPrice) ?>
+                    </td>
+                    <td>
+                        <?= /* @noEscape */  $block->fromatPrice($summaryCatalogRule) ?>
+                    </td>
+                    <td>
+                        <?= /* @noEscape */  $block->fromatPrice($summarySalsRule) ?>
+                    </td>
+                    <td>
+                        <?php
+                            $summaryDiscount = isset($shipping['shipping_discount_amount'])
+                            ? $summaryCatalogRule + $summarySalsRule + $shipping['shipping_discount_amount']
+                            : $summaryCatalogRule + $summarySalsRule;
+                        ?>
+                        <?=/* @noEscape */  $block->fromatPrice($summaryDiscount) ?>
+                    </td>
+                    <td>
+                        <?= /* @noEscape */  $block->fromatPrice($summaryOriginalPrice - $summaryDiscount) ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

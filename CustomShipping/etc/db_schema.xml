@@ -1,0 +1,43 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="directory_country_region_cost" resource="default" engine="innodb" comment="Directory Country Region Cost">
+        <column xsi:type="int" name="region_id" unsigned="true" nullable="false" identity="false"
+                comment="Region ID"/>
+        <column xsi:type="varchar" name="country_id" nullable="false" length="4" default="0"
+                comment="Country ID in ISO-2"/>
+        <column xsi:type="varchar" name="code" nullable="true" length="32" comment="Region code"/>
+        <column xsi:type="varchar" name="default_name" nullable="true" length="255" comment="Region Name"/>
+        <column xsi:type="varchar" name="cost" nullable="true" length="32" comment="Shipping Cost"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="region_id"/>
+        </constraint>
+        <index referenceId="DIRECTORY_COUNTRY_REGION_COST_COUNTRY_ID" indexType="btree">
+            <column name="country_id"/>
+        </index>
+    </table>
+    <table name="from_country_region_cost" resource="default" engine="innodb"
+           comment="From Country Region Cost Attribute Backend Table">
+        <column xsi:type="int" name="value_id" unsigned="false" nullable="false" identity="true"
+                comment="Value ID"/>
+        <column xsi:type="int" name="region_id" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Region ID"/>
+
+        <column xsi:type="int" name="region_id_from" unsigned="true" nullable="false" identity="false"
+                comment="Region ID Form"/>
+
+        <column xsi:type="varchar" name="cost" nullable="true" length="32" comment="Shipping Cost"/>
+
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="value_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="DIRECTORY_REGION_ID_FROM_AND_TO">
+                <column name="region_id_from"/>
+                <column name="region_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="COST_FORM_TO_BETWEEN_REGIONS"
+                table="from_country_region_cost" column="region_id" referenceTable="directory_country_region_cost"
+                referenceColumn="region_id" onDelete="CASCADE"/>
+    </table>
+</schema>

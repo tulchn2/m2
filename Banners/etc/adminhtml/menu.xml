@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+            id="Ecommage_Banners::banners"
+            title="Banners"
+            module="Ecommage_Banners"
+            sortOrder="50"
+            parent="Magento_CatalogRule::promo"
+            action="ecommage_banners/banners"
+            resource="Ecommage_Banners::banners"/>
+    </menu>
+</config>

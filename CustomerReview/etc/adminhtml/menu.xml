@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+            id="Ecommage_CustomerReview::reviews"
+            title="Customer Reviews"
+            module="Ecommage_CustomerReview"
+            sortOrder="10"
+            parent="Magento_Backend::marketing_user_content"
+            action="ecommage_reviews/reviews"
+            resource="Ecommage_CustomerReview::reviews"/>
+    </menu>
+</config>

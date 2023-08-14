@@ -1,0 +1,20 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Ecommage_VideoReview::css/styles.css"/>
+    </head>
+    <body>
+        <referenceContainer name="product.info.media">
+            <block
+                class="Ecommage\VideoReview\Block\Video\Popup"
+                name="ecommage_video_review_popup"
+                template="Ecommage_VideoReview::popup.phtml"
+                cacheable="false"
+                after="product.info.media.image"/>
+            <block
+                class="Ecommage\VideoReview\Block\Product\CountView"
+                name="ecommage_video_review_count"
+                template="Ecommage_VideoReview::count-viewed.phtml"
+                after="ecommage_video_review_popup"/>  
+        </referenceContainer>
+    </body>
+</page>

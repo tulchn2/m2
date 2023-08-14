@@ -1,0 +1,21 @@
+{
+    "ecommage_blogs": {
+        "column": {
+            "id": true,
+            "title": true,
+            "url_key": true,
+            "status": true,
+            "author_id": true,
+            "content": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "ECOMMAGE_BLOGS_TITLE_URL_KEY": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "ECOMMAGE_BLOGS_AUTHOR_ID_CUSTOMER_ENTITY_ENTITY_ID": true
+        }
+    }
+}

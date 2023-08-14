@@ -1,0 +1,24 @@
+<?php
+$getOrderCollection = $block->getOrderCollection(['customer_email' => 'roni_cost@example.com']);
+
+$getOrderCollectionByCustomerId = $block->getOrderCollectionByCustomerId('1');
+// dd($getOrderCollectionByCustomerId->load());
+$orders = $block->getOrderCollectionRes();
+?>
+<h1>roni_cost@example.com </h1>
+<h2> "get all order collection with filters" <br>  $block->getOrderCollection(['customer_email' => 'roni_cost@example.com']); </h2>
+
+    <?php foreach ($getOrderCollection as $k => $order): ?>
+        <div> <?= __("Order# {$order->getIncrementId()} - {$order->getStatus()}  - Creation Date: {$order->getCreatedAt()}") ?></div>
+    <?php endforeach; ?>
+
+<h2> $block->getOrderCollectionByCustomerId('1'); </h2>
+<?php foreach ($getOrderCollectionByCustomerId as $order): ?>
+    <div> <?= __("Order# {$order->getIncrementId()} - {$order->getStatus()}  - Creation Date: {$order->getCreatedAt()}") ?></div>
+<?php endforeach;?>
+<h2> $block->getOrderCollectionRes(); </h2>
+
+<!-- orders->getItems() as opject => $opject->getStatus() | orders->getData() as array => $array['status] -->
+<?php foreach ($orders->getItems() as $order): ?>
+    <div> <?= __("Order# {$order->getIncrementId()} - {$order->getStatus()}  - Creation Date: {$order->getCreatedAt()}") ?></div>
+<?php endforeach;?>

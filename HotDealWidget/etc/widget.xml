@@ -1,0 +1,43 @@
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="hotdeal_categories" class="Ecommage\HotDealWidget\Block\Widget\Product\HotDeal">
+        <label translate="true">Hot Deal Products</label>
+        <description translate="true">Select discounted products to display</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" required="true" visible="true">
+                <label translate="true">Title</label>
+            </parameter>
+            <parameter name="url_show_more" xsi:type="text" visible="true">
+                <label translate="true">Url Show More</label>
+            </parameter>
+            <parameter name="date_from" xsi:type="block" visible="true" required="true" sort_order="10">
+                <label translate="true">Time From:</label>
+                <block class="Ecommage\HotDealWidget\Block\Adminhtml\Widget\DatePicker">
+                    <data>
+                        <item name="show_time" xsi:type="boolean">true</item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="date_to" xsi:type="block" visible="true" required="true" sort_order="10">
+                <label translate="true">Time To:</label>
+                <block class="Ecommage\HotDealWidget\Block\Adminhtml\Widget\DatePicker">
+                    <data>
+                        <item name="show_time" xsi:type="boolean">true</item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="product_ids_choose" xsi:type="block" visible="true" required="true" sort_order="10">
+                <label translate="true">Products</label>
+                <block class="Ecommage\HotDealWidget\Block\Adminhtml\Product\Widget\MultiChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string" translate="true">Select Products...</item>
+                        </item>
+                        <item name="use_massaction" xsi:type="boolean">true</item>
+                    </data>
+                </block>
+            </parameter>
+        </parameters>
+    </widget>
+    
+</widgets>

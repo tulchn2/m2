@@ -1,0 +1,11 @@
+<?php
+$countViewed = $block->getCountView();
+?>
+<div class="count-viewed-wrap">
+    <strong class="count-number">
+        <?= /* @noEscape */ $countViewed ?>
+    </strong>
+    <span class="count-label">
+        <?= $block->escapeHtml(__('Views')) ?>
+    </span>
+</div>

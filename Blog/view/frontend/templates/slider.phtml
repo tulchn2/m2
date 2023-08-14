@@ -1,0 +1,31 @@
+<?php
+$blog = $block->getBlogPublishedCollection();
+?>
+
+<div class="carousel-wrap">
+    <div class="blog-slider owl-carousel owl-theme">
+        <?php foreach ($blog as $post): ?>
+            <?php //dd($post) ?>
+            <div class="post-item">
+                <h3 class="post-name">
+                    <a href="<?= $block->getUrl($post->getData('url_key')); ?>">
+                        <?= __($post->getOrigData('title')); ?>
+                    </a>
+                </h3>
+                <p class="post-desc">
+                    <?= __($post->getData('content')); ?>
+                </p>
+                <strong class="post-author">
+                    <?= __('By: ' . $post->getData('firstname') .  ' ' . $post->getData('lastname')); ?>
+                </strong>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        ".owl-carousel": {
+            "Ecommage_Blog/js/scripts-slider": {}
+        }
+    }
+</script>

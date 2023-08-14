@@ -1,0 +1,33 @@
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="bestsellers_categories" class="Ecommage\BestsellersWidget\Block\Widget\ProductList">
+        <label translate="true">Products Bestsellers By Categories</label>
+        <description translate="true">List of Best Selling Products by category</description>
+        <parameters>
+            <parameter name="set_period" xsi:type="select" visible="true"
+                source_model="Ecommage\BestsellersWidget\Model\Config\Source\SetPeriod">
+                <label translate="true">Period</label>
+            </parameter>
+            <parameter name="products_count" xsi:type="text" required="true" visible="true">
+                <label translate="true">Number of Products to Display</label>
+                <value>8</value>
+            </parameter>
+            <parameter name="multi_category_chooser" xsi:type="multiselect" required="true" visible="true"
+                source_model="Ecommage\BestsellersWidget\Model\Config\Source\CategoryList">
+                <label translate="true">Categores</label>
+            </parameter>
+            <parameter name="show_tab_all" xsi:type="select" visible="true">
+                <label translate="true">Display Tab 'All'</label>
+                <options>
+                    <option name="yes" value="1" >
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0" selected="true">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+    
+</widgets>

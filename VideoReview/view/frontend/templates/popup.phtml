@@ -1,0 +1,40 @@
+<?php
+
+/** @var \Ecommage\VideoReview\Block\Video\Popup $block */
+$jsId = $block->getJsId();
+$items = $block->getListTitle();
+?>
+
+<div data-bind="scope: 'list-<?= /* @noEscape */ $jsId ?>'">
+    <ul class="list-group-show" data-bind="visible: isVisible(), foreach: items" style="display: none;">
+        <li>
+            <a data-bind="
+                    attr: {href:'#', title: name},
+                    text: name,
+                    event: {click: function(data,event){
+                        $parent.showPopup($parent,data);
+                    }},
+                    "></a>
+        </li>
+    </ul>
+    <div id="modal-video-review" data-bind="with: resultData" style="display: none;">
+        <div class="videoWrapper" data-bind="template: { name: template }">
+        </div>
+    </div>
+</div>
+
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "list-<?= /* @noEscape */ $jsId ?>": {
+                        "component": "Ecommage_VideoReview/js/scripts",
+                        "items": <?= /* @noEscape */ json_encode($items) ?>
+                    }
+                }
+            }
+        }
+    }
+</script>

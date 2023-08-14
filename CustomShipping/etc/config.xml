@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <customshipping>
+                <active>0</active>
+                <title>Specific</title>
+                <name>Shipping Cost to Specific Province</name>
+                <shipping_cost>26</shipping_cost>
+                <sallowspecific>VN</sallowspecific>
+                <sort_order>15</sort_order>
+                <model>Ecommage\CustomShipping\Model\Carrier\Customshipping</model>
+            </customshipping>
+        </carriers>
+    </default>
+</config>

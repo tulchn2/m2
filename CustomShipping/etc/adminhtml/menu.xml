@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+            id="Ecommage_CustomShipping::costMethod"
+            title="Cost Method"
+            module="Ecommage_CustomShipping"
+            sortOrder="50"
+            parent="Magento_Sales::sales"
+            resource="Ecommage_CustomShipping::costMethod"/>
+        <add
+            id="Ecommage_CustomShipping::regions"
+            title="Regions Cost"
+            module="Ecommage_CustomShipping"
+            sortOrder="10"
+            parent="Ecommage_CustomShipping::costMethod"
+            action="ecommage_shipping/regions"
+            resource="Ecommage_CustomShipping::regions"/>
+    </menu>
+</config>

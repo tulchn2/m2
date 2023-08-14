@@ -1,0 +1,40 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="discount_reports" resource="default" engine="innodb" comment="Ecommage Discount Reports">
+        <column xsi:type="int" name="report_id" padding="10" unsigned="true" identity="true" nullable="false" comment="Entity Id"/>
+        <column xsi:type="varchar" name="increment_id" nullable="true" length="50" comment="Increment ID"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store Id"/>
+        <column xsi:type="varchar" name="product_ids" nullable="true" comment="Product Ids"/>
+        <column xsi:type="decimal" name="discount_amount" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Discount Amount"/>
+        <column xsi:type="decimal" name="grand_total" scale="4" precision="20" unsigned="false" nullable="false"
+                default="0" comment="Grand Total"/>
+        <column xsi:type="int" name="quote_id" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Quote ID"/>
+        <column xsi:type="int" name="order_id" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Order ID"/>
+
+        <column xsi:type="text" name="shipping" nullable="true" comment="Shipping"/>
+        <column xsi:type="text" name="applied_rule_ids" nullable="true" comment="Applied Rule Ids"/>
+        <column xsi:type="text" name="catalogrule_product" nullable="true" comment="Catalog Rule Product"/>
+        <column xsi:type="text" name="salesrule" nullable="true" comment="Sales Rule Product"/>
+
+        <column xsi:type="int" name="customer_group_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Customer Group Id"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="report_id"/>
+        </constraint>
+        <index referenceId="ECOMMAGE_DISCOUNT_REPORTS_STORE_ID_QUOTE_ID_CUSTOMER_GROUP_ID" indexType="btree">
+            <column name="store_id"/>
+            <column name="quote_id"/>
+            <column name="customer_group_id"/>
+        </index>
+        <index referenceId="ECOMMAGE_DISCOUNT_REPORTS_INCREMENT_ID" indexType="fulltext">
+            <column name="increment_id"/>
+        </index>
+   </table>
+</schema>

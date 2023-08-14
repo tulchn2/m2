@@ -1,0 +1,78 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+    $products = $block->getProducts();
+    $shipping = $block->getShippingData();
+
+?>
+<div class="admin__data-grid-wrap admin__data-grid-wrap-static" data-role="grid-wrapper" >
+    <table class="data-grid" data-role="grid">
+       <thead>
+            <th class="col col-product"><span><?= $block->escapeHtml(__('Product')) ?></span></th>
+            <th class="data-grid-th"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
+            <th class="data-grid-th"><span><?= $block->escapeHtml(__('Discount(Catalog Price Rule)')) ?></span></th>
+            <th class="data-grid-th"><span><?= $block->escapeHtml(__('Discount(Cart Price Rule)')) ?></span></th>
+            <th class="data-grid-th"><span><?= $block->escapeHtml(__('Discount Amount')) ?></span></th>
+            <th class="data-grid-th"><span><?= $block->escapeHtml(__('Row Total')) ?></span></th>
+        </thead>
+        <tbody>
+            <?php foreach ($products as $product): ?>
+                <?php $catalogrule = $block->getCatalogruleProduct($product->getId()) ?>
+                <?php $salesrule = $block->getSalesruleProduct($product->getId()) ?>
+                <?php
+                    $totalCatalogRule = 0;
+                    $totalSaleRule = 0;
+                    $block->setrulePrice($catalogrule[0]['original_price'])
+                ?>
+
+                <tr class="data-row">
+                    <td>
+                        <?= $block->escapeHtml($product->getName()) ?></br/>
+                        <?= $block->escapeHtml(__('SKU: %1', $product->getSku())) ?></br/>
+                        <?= $block->escapeHtml(__('ID: %1', $product->getId())) ?>
+                    </td>
+                    <td>
+                        <?= $block->escapeHtml(__('Ordered: %1', $catalogrule[0]['qty_ordered'])) ?>
+                    </td>
+                    <td>
+                        <?php foreach ($catalogrule as $rule): ?>
+                            <?php
+                                $discount = $block->productPriceCalc($rule);
+                                $totalCatalogRule += $discount;
+                            ?>
+                            <?= /* @noEscape */  $rule['rule_name'] .': -'. $block->fromatPrice($discount) ?><br/>
+                        <?php endforeach; ?>
+                    </td>
+                    <td>
+                        <?php foreach ($salesrule as $rule): ?>
+                            <?php
+                                $totalSaleRule += $rule['discount'];
+                            ?>
+                            <?= /* @noEscape */  $rule['rule_name'] .': -'.$block->fromatPrice($rule['discount']) ?>
+                            <br/>
+                        <?php endforeach; ?>
+                    </td>
+                    <td>
+                        <?= $block->escapeHtml(__('Catalog Price Rule: -%1', $block->fromatPrice($totalCatalogRule))) ?>
+                        <br/>
+                        <?= $block->escapeHtml(__('Cart Price Rule: -%1', $block->fromatPrice($totalSaleRule))) ?>
+                        <?php if (!empty($shipping['shipping_discount_amount'])): ?>
+                            <br/>
+                            <?php
+                                $totalSaleRule += $shipping['shipping_discount_amount'];
+                            ?>
+                            <?= $block->escapeHtml(__('%1: -', $shipping['shipping_description'])) ?>
+                            <?= /* @noEscape */ $block->fromatPrice($shipping['shipping_discount_amount']) ?>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php $priceRow = $catalogrule[0]['original_price']- $totalCatalogRule - $totalSaleRule; ?>
+                        <?= /* @noEscape */ $block->fromatPrice($priceRow) ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

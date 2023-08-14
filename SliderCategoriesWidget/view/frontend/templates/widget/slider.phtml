@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @var \Ecommage\SliderCategoriesWidget\Block\Widget\Category\Slider $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @codingStandardsIgnoreFile
+ */
+
+$categories = $block->getCategoryCollection();
+?>
+<?php if ($block->getCategoryCollection() && $block->getCategoryCollection()->getSize()) : ?>
+<?php
+    $categories = $block->getCategoryCollection();
+    $linkTitle = $block->getData('link_title');
+    $linkUrl = $block->getData('link_url');
+   
+?>
+    <div class="collection-section">
+        <ul class="amtheme-images-carousel amtheme-slick-slider slider-collection" data-mage-init='{"slickSlider":{
+                "sliderOptions": {
+                    "slidesToShow": 1,
+                    "slidesToScroll": 1,
+                    "infinite": false,
+                    "dots": false,
+                    "arrows": true
+                }
+            }}'>
+            <?php foreach ($categories as $category) : ?>
+                <li class="amtheme-slide slider-collection">
+                    <div class="slider-left">
+                        <div class="slider-left__content">
+                            <h4 class="title-slider"><?= $escaper->escapeHtml($category->getName()) ?></h4>
+                            <p class="subtitle-slider"><?=  $escaper->escapeHtml(__($block->getData('sub_title'))) ?></p>
+                            <?php if ($description = $category->getDescription()):?>
+                                <?php
+                                     $descriptionHtml = $block->categoryAttribute($category,$description,'description');
+                                ?>
+                                <div class="description-slider"><?= /* @noEscape */$descriptionHtml; ?></div>
+                            <?php endif; ?>
+                            <a
+                                class="btn-show-details"
+                                href="<?= $block->escapeUrl($category->getUrl()); ?>"
+                                title="<?= $escaper->escapeHtml($category->getName()) ?>">
+                                <?= $escaper->escapeHtml(__('Show Details')) ?>
+                            </a>
+                        </div>
+                    </div>
+                    <?php if ($category->getThumbnail()):?>
+                        <div class="watch-image">
+                            <img
+                                class="amtheme-image slider-collection category-thumbail"
+                                src="<?= $block->getThumbnailUrl($category->getThumbnail()); ?>"
+                                alt="<?= $escaper->escapeHtml($category->getName()) ?>"
+                                data-loaded="true">
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($category->getImageUrl()):?>
+                    <div class="slider-right">
+                        <img
+                            class="amtheme-image slider-collection"
+                            src="<?= $category->getImageUrl(); ?>"
+                            alt="<?= $escaper->escapeHtml($category->getName()) ?>"
+                            data-loaded="true">
+                    </div>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        <?php if ($linkTitle): ?>
+            <div class="btn-more-collection">
+                <a
+                    class="pagebuilder-button-link"
+                    href="<?= $escaper->escapeUrl($linkUrl) ?>"
+                    title="<?=  $escaper->escapeHtml(__($linkTitle)) ?>" >
+                    <span cda="link_text"><?=  $escaper->escapeHtml(__($linkTitle)) ?></span>
+                </a>
+            </div>
+        <? endif; ?>
+    </div>
+<?php endif; ?>

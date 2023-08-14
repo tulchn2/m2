@@ -1,0 +1,56 @@
+<?php
+$collection = $block->getProductCollectionByCategories([3]);
+echo '<h2>get products by categories</h2>';
+foreach ($collection as $_product) {
+    echo $_product->getName() . ' - ' . $_product->getProductUrl() . '<br />';
+}
+echo '<h2>returnProdColRepoWithFitler</h2>';
+$block->returnProdColRepoWithFitler();
+
+$id = '2045';
+$sku = 'Virtual Product test slider';
+
+echo '<h2>how to get product by ID, SKUs</h2>';
+$_product = $block->getProductById($id);
+echo $_product->getName() .'----get by id';
+echo '<br />';
+$_product = $block->getProductBySku($sku);
+echo $_product->getName() . '----get by sku';
+echo '<br />';
+
+echo '<h2>how to get product stock information</h2>';
+$_productStock = $block->getStockItem('123');
+//print_r($_productStock->getData()); 
+echo $_productStock->getQty(); echo '<br />';
+echo $_productStock->getMinQty(); echo '<br />';
+echo $_productStock->getMinSaleQty(); echo '<br />';
+echo $_productStock->getMaxSaleQty(); echo '<br />';
+echo $_productStock->getIsInStock(); echo '<br />';
+
+
+$productId = 110; // YOUR PRODUCT ID
+$product = $block->getProductById($productId);
+ 
+// for current product
+// $product = $block->getCurrentProduct();
+ 
+$categoryIds = $product->getCategoryIds();
+echo '<h2>how to get categories from specific product</h2>';
+$categories = $block->getCategoryCollection()
+                    ->addAttributeToFilter('entity_id', $categoryIds);
+                    
+foreach ($categories as $category) {
+    echo $category->getName() . '<br>';
+}
+
+
+echo '<h2>get review rating collection</h2>';
+// dd($block->getRatingCollection());
+// dd($block->getReviews('1')->getItems());
+$reviewProduct = $block->getReviews('1')->getItems();
+foreach ($reviewProduct as $review) {
+    echo $review->getTitle() . ' :: ';
+    $rating = $review->getRatingVotes()->getItems();
+    echo'perent: '.$rating[$review->getReviewId()]['percent'] . '%<br>';
+}
+?>

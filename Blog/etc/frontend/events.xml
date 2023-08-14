@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="ecommage_blogs_load_after">
+        <observer name="eb_collection_load_after" instance="Ecommage\Blog\Observer\AfterLoad" />
+    </event>
+</config>

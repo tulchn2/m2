@@ -1,0 +1,25 @@
+<?php
+    $jsId = $block->getJsId();
+    $postUrl = $block->getUrl("ecommage_recently/viewed/index?_=");
+?>
+<div class="product-list nicefornow-recently-viewed-product ecommage-recently-viewed-product"
+    id="nicefornow_recently_viewed_product_<?= /* @noEscape */ $jsId?>"></div>
+<script>
+    require(['jquery'], function ($) {
+        $(document).ready(function () {
+            $.ajax({
+                url: "<?= $block->escapeHTML($postUrl)?>" + new Date().getTime(),
+                type: 'POST',
+                data: {
+                    recently_viewed_product: localStorage.getItem("recently_viewed_product"),
+                },
+                showLoader: true,
+                cache: false,
+                success: function (data)
+                {
+                    $('#nicefornow_recently_viewed_product_<?= /* @noEscape */ $jsId?>').append(data);
+                }
+            })
+        })
+    })
+</script>

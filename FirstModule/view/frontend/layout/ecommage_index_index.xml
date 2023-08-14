@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <referenceContainer name="content">
+        <block class="Ecommage\FirstModule\Block\Index" name="ecommage_index_index" template="Ecommage_FirstModule::index.phtml" />
+        <block class="Ecommage\FirstModule\Block\Products" name="ecommage_get_product" />
+        <block class="Ecommage\FirstModule\Block\BestSellerProducts" name="ecommage_get_best_seller_product" cacheable= "false"/>
+    </referenceContainer>
+</page>

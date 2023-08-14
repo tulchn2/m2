@@ -1,0 +1,29 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="ecommage_regions_listing_data_source" xsi:type="string">Ecommage\CustomShipping\Model\ResourceModel\Regions\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+     <virtualType name="Ecommage\CustomShipping\Model\ResourceModel\Regions\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="eventPrefix" xsi:type="string">ecommage_regions_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">regions_collection</argument>
+            <argument name="mainTable" xsi:type="string">directory_country_region_cost</argument>
+            <argument name="resourceModel" xsi:type="string">Ecommage\CustomShipping\Model\ResourceModel\Regions</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\ImportExport\Model\Import\SampleFileProvider">
+        <arguments>
+            <argument name="samples" xsi:type="array">
+                <item name="directory_country_region_cost" xsi:type="string">Ecommage_CustomShipping</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\ImportExport\Controller\Adminhtml\Import\Validate">
+        <plugin name="ecommage_custom_controller_import_validate"
+                type="Ecommage\CustomShipping\Plugin\Controller\Adminhtml\Import\Validate"/>
+    </type>
+</config>
+

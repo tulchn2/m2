@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="main.content">
+            <block class="Ecommage\CustomerReview\Block\Slider\Review"
+                name="ecommage_customer_review_slider"
+                template="Ecommage_CustomerReview::slider/customer-reviews.phtml"
+                cacheable="false"
+                after="-"/>
+            <block class="Ecommage\CustomerReview\Block\Modal\Review"
+                name="ecommage_customer_review_modal"
+                template="Ecommage_CustomerReview::modal/customer-reviews.phtml"
+                after="-"/>
+        </referenceBlock>
+    </body>
+</page>

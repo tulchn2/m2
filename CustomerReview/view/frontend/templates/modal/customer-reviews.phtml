@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @var \Ecommage\CustomerReview\Block\Modal\Reviews $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @codingStandardsIgnoreFile
+ */
+?>
+
+<?php if ($block->isShowModalAddReview()): ?>
+    <div class="form-review-wrap">
+        <div class="form-review-title">
+            <h3><?= $escaper->escapeHtml(__('Customer Review')) ?></h3>
+        </div>
+        <form class="form" id="create-customer-review" enctype="multipart/form-data" data-mage-init='{"validation":{}}'
+            method="post" action="<?= $block->getUrl('ecommage-review/form/post')?>">
+            <fieldset class="fieldset">
+                <input type="hidden" name="product_ids" value="<?= $block->getCurrentProductId() ?>" data-validate="{required:true}">
+                <div class="field required">
+                    <label class="label"><span><?= $escaper->escapeHtml( __('Name')) ?></span></label>
+                    <div class="control">
+                        <input name="name" type="text" title="<?= $escaper->escapeHtml(__('Enter Name')) ?>" value=""
+                        class="input-text required-entry" required="true"  data-validate='{"required":true}'/>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label"><span><?= __('City') ?></span></label>
+                    <div class="control">
+                    <select name="city_id" class="input-text">
+                        <?php foreach($block->getCityList() as $city): ?>
+                            <option value="<?= $city['value'] ?>"><?= $city['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    </div>
+                </div>
+                <div class="field review-field-image">
+                    <label class="label" for="image"><span><?= $escaper->escapeHtml(__('Add your photo')) ?></span></label>
+                    <div class="control">
+                        <input name="image" id="image" title="<?= $escaper->escapeHtmlAttr(__('photo')) ?>"  class="input-file" type="file" accept="image/*" />
+                    </div>
+                </div>
+                <div class="field required">
+                    <label class="label"><span><?= $escaper->escapeHtml(__('Content')) ?></span></label>
+                    <div class="control">
+                        <textarea name="description" rows="5" cols="33"
+                        class="input-text required-entry" required="true"  data-validate='{"required":true}'></textarea>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="submit" title="Submit" class="action submit primary">
+                        <span>Submit</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @var \Ecommage\FirstModule\Block\Display $block
+ */
+$block->getData('template');
+?>
+<h3>
+    <?php echo $block->getTextFirstModule(); ?>
+</h3>
+<?php 
+    $getCustomerCollection = $block->getCustomerCollection();
+    $getFilteredCustomerCollection = $block->getFilteredCustomerCollection();
+    $getCustomerDetail = $block->getCustomerDetail();
+    // dd($getCustomerDetail);die;
+?>

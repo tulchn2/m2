@@ -1,0 +1,5 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Ecommage\Blog\Controller\Post\Save">
+        <plugin name="Ecommage_Validation_Blog_Save" type="Ecommage\Validation\Plugin\BlogSave" sortOrder="10"/>
+    </type>
+</config>

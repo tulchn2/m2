@@ -1,0 +1,30 @@
+{
+    "directory_country_region_cost": {
+        "column": {
+            "region_id": true,
+            "country_id": true,
+            "code": true,
+            "default_name": true,
+            "cost": true
+        },
+        "index": {
+            "DIRECTORY_COUNTRY_REGION_COST_COUNTRY_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "from_country_region_cost": {
+        "column": {
+            "value_id": true,
+            "region_id": true,
+            "region_id_from": true,
+            "cost": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_7C39F33E7DAD94BA843E06E94E7765A1": true,
+            "FROM_COUNTRY_REGION_COST_REGION_ID_FROM_REGION_ID": true
+        }
+    }
+}

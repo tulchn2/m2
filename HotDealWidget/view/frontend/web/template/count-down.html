@@ -1,0 +1,6 @@
+<div class="count-down-wrap" data-bind="visible: isVisible">
+    <span class="count-down-label" data-bind="text: label"></span>
+     <!-- ko foreach: content -->
+        <span data-bind="text: value, attr: { class: name +'-left time-value', title: name}"></span>
+    <!-- /ko -->
+</div>

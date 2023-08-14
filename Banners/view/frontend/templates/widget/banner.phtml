@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @var \Ecommage\Banners\Block\Widget\Banner $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @codingStandardsIgnoreFile
+ */
+
+$banners = $block->getBanner();
+?>
+<?php if ($banners && $banners->getSize()): ?>
+    <div class="custom-banner-wrap">
+        <?php foreach ($banners as $banner): ?>
+        <?php if ($banner->getUrlKey()): ?>
+            <a href="<?= $escaper->escapeUrl($banner->getUrlKey()) ?>" class="custom-banner-item">
+                <img
+                    src="<?= /* @noEscape */ $banner->getImageUrl() ?>"
+                    alt="<?= $escaper->escapeHtml($banner->getTitle()) ?>"
+                    title="<?= $escaper->escapeHtml($banner->getTitle()) ?>"
+                >
+            </a>
+        <?php else: ?>
+            <div class="custom-banner-item">
+                <img
+                    src="<?= /* @noEscape */ $banner->getImageUrl() ?>"
+                    alt="<?= $escaper->escapeHtml($banner->getTitle()) ?>"
+                    title="<?= $escaper->escapeHtml($banner->getTitle()) ?>"
+                >
+            </div>
+        <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @var \Ecommage\CustomerReview\Block\Slider\Reviews $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @codingStandardsIgnoreFile
+ */
+
+$reviews = $block->getCustomerReviews();
+
+?>
+<?php if ($reviews && $reviews->getSize()): ?>
+    <div class="customer-review-wrap">
+        <ul class="customer-review-items amtheme-slick-slider slider-collection"
+            data-mage-init='{"slickSlider":{
+                "sliderOptions": {
+                    "slidesToShow": 1,
+                    "slidesToScroll": 1,
+                    "infinite": false,
+                    "dots": true,
+                    "arrows": false
+                }
+            }}'>
+            <?php foreach ($reviews as $_item): ?>
+                <div class="customer-review-item">
+                    <?php if ($_item->getImageUrl()): ?>
+                        <div class="client-left">
+                            <img
+                                src="<?= /* @noEscape */ $_item->getImageUrl() ?>"
+                                alt="<?= $escaper->escapeHtml($_item->getName()) ?>"
+                                title="<?= $escaper->escapeHtml($_item->getName()) ?>"
+                            >
+                        </div>
+                    <?php endif; ?>
+                    <div class="client-right">
+                        <div class="about-customer">
+                            <span class="name"><?= $escaper->escapeHtml($_item->getName()) ?></span>
+                            <span class="address"><?= $escaper->escapeHtml($_item->getAddress()) ?></span>
+                        </div>
+                        <p class="description"><?= $escaper->escapeHtml($_item->getDescription()) ?></p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>

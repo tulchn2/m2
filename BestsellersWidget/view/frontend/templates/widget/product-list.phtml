@@ -1,0 +1,114 @@
+<?php
+
+/**
+ * Template for displaying products widget
+ *
+ * @var $block \Ecommage\BestsellersWidget\Block\Widget\ProductList
+ */
+if ($exist = ($block->getCategoryCollection() && $block->getCategoryCollection()->getSize())) {
+    $categories = $block->getCategoryCollection();
+    $type = 'widget-bestseller-grid';
+    $image = 'new_products_content_widget_grid';
+    $mode = 'grid';
+    $title = __('Bestsellers Products');
+}
+
+?>
+<?php if ($exist): ?>
+    <div class="block am-widget widget-bestseller-wrap <?= /* @noEscape */ $mode ?>">
+        <div class="block-title">
+            <strong role="heading" aria-level="2">
+                <?= $block->escapeHtml($title) ?>
+            </strong>
+        </div>
+        <div class="product data items" data-mage-init='{"mage/tabs": {
+            "openedState": "active",
+            "animate": {"duration": 100},
+            "active": 0,
+            "disabledState": "disabled"}}'>
+            <?php foreach ($categories as $key => $category): ?>
+                <?php $products = $block->getProductCollectionByCategories($category); ?>
+
+                <div class="item title" data-role="collapsible">
+                    <a class="switch" data-toggle="trigger" href="#tab-<?= /* @noEscape */ $category->getUrlKey() ?>">
+                        <?= $block->escapeHtml($category->getName()) ?>
+                    </a>
+                </div>
+                <div id="#tab-<?= /* @noEscape */ $category->getUrlKey() ?>" class="item content" data-role="content">
+                    <div class="block-content content">
+                        <div class="products-<?= /* @noEscape */ $mode ?> <?= /* @noEscape */ $mode ?>">
+                            <ol class="products list items product-items <?= /* @noEscape */ $type ?>">
+                                <?php foreach ($products as $product): ?>
+                                    <li class="product-item item product">
+                                        <div class="product-item-info">
+                                            <a
+                                            href="<?= $block->escapeUrl($product->getProductUrl()) ?>"
+                                            class="product-item-photo">
+                                                <?= $block->getImage($product, $image)->toHtml() ?>
+                                            </a>
+                                            <div class="product details product-item-details">
+                                                <span class="product name product-item-name">
+                                                    <a
+                                                        title="<?= $block->escapeHtmlAttr(__($product->getName())) ?>"
+                                                        href="<?= $block->escapeUrl($product->getProductUrl()) ?>"
+                                                        class="product-item-link">
+                                                        <?= $block->escapeHtml(__($product->getName())) ?>
+                                                    </a>
+                                                </span>
+                                                <?= $block->getProductPriceHtml($product, $type) ?>
+                                            </div>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ol>
+                        </div>
+                        <div class="btn-show-more-wrap">
+                            <a href="<?= $block->escapeUrl($category->getUrl()); ?>">
+                                <?= $block->escapeHtml(__('Xem thêm sản phẩm %1', $category->getName())) ?>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+            <?php if ($block->showTabAll()): ?>
+                <?php $products = $block->getProductCollectionByCategories($block->getCategories()); ?>
+
+                <div class="item title" data-role="collapsible">
+                    <a class="switch" data-toggle="trigger" href="#tab-show-all-bestsellers">
+                        <?= $block->escapeHtml(__('All')) ?>
+                    </a>
+                </div>
+                <div id="#tab-show-all-bestsellers" class="item content" data-role="content">
+                    <div class="block-content content">
+                        <div class="products-<?= /* @noEscape */ $mode ?> <?= /* @noEscape */ $mode ?>">
+                            <ol class="products list items product-items <?= /* @noEscape */ $type ?>">
+                                <?php foreach ($products as $product): ?>
+                                    <li class="product-item item product">
+                                        <div class="product-item-info">
+                                            <a
+                                            href="<?= $block->escapeUrl($product->getProductUrl()); ?>"
+                                            class="product-item-photo">
+                                                <?= $block->getImage($product, $image)->toHtml() ?>
+                                            </a>
+                                            <div class="product details product-item-details">
+                                                <span class="product name product-item-name">
+                                                    <a
+                                                        title="<?= $block->escapeHtmlAttr(__($product->getName())) ?>"
+                                                        href="<?= $block->escapeUrl($product->getProductUrl()) ?>"
+                                                        class="product-item-link">
+                                                        <?= $block->escapeHtml(__($product->getName())) ?>
+                                                    </a>
+                                                </span>
+                                                <?= $block->getProductPriceHtml($product, $type) ?>
+                                            </div>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>

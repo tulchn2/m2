@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+            id="Ecommage_FirstModule::simple_module"
+            title="Simple Module"
+            module="Ecommage_FirstModule"
+            sortOrder="10"
+            resource="Ecommage_FirstModule::simple_module"/>
+        <add
+            id="Ecommage_FirstModule::md_configuration"
+            title="Configuration"
+            module="Ecommage_FirstModule"
+            sortOrder="1"
+            parent="Ecommage_FirstModule::simple_module"
+            action="adminhtml/system_config/edit/section/first_module"
+            resource="Ecommage_FirstModule::simple_module_configuration"/>
+    </menu>
+</config>

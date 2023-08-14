@@ -1,0 +1,23 @@
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="bestsellers_categories" class="Ecommage\SliderCategoriesWidget\Block\Widget\Category\Slider">
+        <label translate="true">Slider for Categories Banner</label>
+        <description translate="true">Select the categories to display</description>
+        <parameters>
+            <parameter name="sub_title" xsi:type="text" required="false" visible="true">
+                <label translate="true">Subtitle</label>
+            </parameter>
+            <parameter name="link_title" xsi:type="text" required="false" visible="true">
+                <label translate="true">Link Title</label>
+            </parameter>
+            <parameter name="link_url" xsi:type="text" required="false" visible="true">
+                <label translate="true">Link URL</label>
+            </parameter>
+            <parameter name="multi_category_chooser" xsi:type="multiselect" required="true" visible="true"
+                source_model="Ecommage\SliderCategoriesWidget\Model\Config\Source\CategoryList">
+                <label translate="true">Categores</label>
+            </parameter>
+        </parameters>
+    </widget>
+    
+</widgets>

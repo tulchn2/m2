@@ -1,0 +1,52 @@
+<h2>
+   <?= __('app/code/Ecommage/FirstModule/Block/BestSellerProducts.php'); ?>
+</h2>
+<?php
+$collection = $block->getProductCollection();
+$block->getLoopFor($collection, 'Best Seller Monthly Products');
+
+$featuredProductCollection = $block->getFeaturedProductCollection();
+$block->getLoopFor($featuredProductCollection, 'Featured Products');
+
+$newProduct = $block->getNewProductCollection();
+$block->getLoopFor($newProduct, 'New Products');
+
+$onSeltProduct = $block->getOnSeltProductCollection();
+$block->getLoopFor($onSeltProduct, 'OnSelt Products');
+
+$reportProduct = $block->getReportProductCollection();
+$block->getLoopFor($reportProduct, 'Repost viewed Products');
+
+$wishListcollection = $block->getWishListProductCollection();
+$block->getLoopFor($wishListcollection, 'WishList Products');
+?>
+
+
+<?php if ($currentProduct = $block->getProductById('1')): ?>
+   <table>
+      <tr>
+         <td>
+            <?php $relatedProducts = $currentProduct->getRelatedProductCollection()
+               ->addAttributeToSelect(['name','price'])
+               ->setPositionOrder()->addStoreFilter();
+               $block->getLoopFor($relatedProducts, 'Related Products');
+             ?>
+         </td>
+         <td>
+            <?php $crossSellProducts = $currentProduct->getCrossSellProductCollection()
+               ->addAttributeToSelect(['name','price'])
+               ->setPositionOrder()->addStoreFilter();
+               $block->getLoopFor($crossSellProducts, 'CrossSell Products');
+            ?>
+         </td>
+         <td>
+            <?php $upSellProducts = $currentProduct->getUpSellProductCollection()
+               ->addAttributeToSelect(['name','price'])
+               ->setPositionOrder()->addStoreFilter();
+               $block->getLoopFor($upSellProducts, 'UpSell Products'); ?>
+         </td>
+         <td>
+      </tr>
+   </table>
+<?php endif; ?>
+?>

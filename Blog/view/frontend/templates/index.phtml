@@ -1,0 +1,38 @@
+<?php
+     $blog = $block->getBlogCollection();
+?>
+
+<a class="action primary" href="<?php echo $block->getUrl('ecommage-blog/post/insert'); ?>">Add Post</a>
+<?php if ($blog && count($blog)): ?>
+<table class="post-list">
+     <thead>
+          <tr>
+               <th scope="col" class="col"><?= __('Title') ?></th>
+               <th scope="col" class="col"><?= __('URL') ?></th>
+               <th scope="col" class="col"><?= __('Status') ?></th>
+               <th scope="col" class="col"><?= __('Created') ?></th>
+               <th scope="col" class="col"><?= __('Modified') ?></th>
+               <th scope="col" class="col" colspan="2">&nbsp;</th>
+          </tr>
+     </thead>
+     
+     <tbody>
+          <?php foreach($blog as $post): ?>
+          <tr>
+               <td class="col"><?= $post->getTitle(); ?></td>
+               <td class="col"><?= $post->getUrlKey(); ?></td>
+               <td class="col"><?= $block->getStatusName($post->getData('status')); ?></td>
+               <td class="col"><?= $post->getData('created_at'); ?></td>
+               <td class="col"><?= $post->getData('updated_at'); ?></td>
+               <td class="col"><a href="<?= $block->getUrl('ecommage-blog/post/edit').'id/'.$post->getData('id'); ?>" class="action primary">Edit</a></td>
+               <td class="col"><a href="<?= $block->getUrl('ecommage-blog/post/delete').'?id='.$post->getData('id'); ?>" class="action primary">Delete</a></td>
+          </tr>
+          <?php endforeach; ?>
+     </tbody>
+</table>
+
+<?php $block->getStoreManagerData(); ?>
+<?php else: ?>
+     <div class="message info empty"><span><?= __('You have no posts in your blog.') ?></span></div>
+<?php endif; ?>
+

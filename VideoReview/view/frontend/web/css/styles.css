@@ -1,0 +1,11 @@
+.list-group-show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.list-group-show li{
+    padding: 0 10px;
+}
+.list-group-show li::marker{
+    font-size: 0;
+}

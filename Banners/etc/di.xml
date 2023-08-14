@@ -1,0 +1,18 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="ecommage_banners_listing_data_source" xsi:type="string">Ecommage\Banners\Model\ResourceModel\Banners\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+     <virtualType name="Ecommage\Banners\Model\ResourceModel\Banners\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="eventPrefix" xsi:type="string">ecommage_banners_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">banners_collection</argument>
+            <argument name="mainTable" xsi:type="string">ecommage_banner</argument>
+            <argument name="resourceModel" xsi:type="string">Ecommage\Banners\Model\ResourceModel\Banners</argument>
+        </arguments>
+    </virtualType>
+</config>
+

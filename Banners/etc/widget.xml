@@ -1,0 +1,19 @@
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="ecommage_custom_banner" class="Ecommage\Banners\Block\Widget\Banner">
+        <label translate="true">Ecommage - Custom Banner Widget</label>
+        <description>Ecommage - Custom Banner Widget</description>
+        <parameters>
+            <parameter name="banner_id" xsi:type="block" visible="true" required="true" sort_order="10">
+                <label translate="true">Banner:</label>
+                <block class="Ecommage\Banners\Block\Adminhtml\Widget\Chooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string" translate="true">Select Banner...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

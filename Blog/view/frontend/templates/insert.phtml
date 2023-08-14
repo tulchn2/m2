@@ -1,0 +1,67 @@
+<?php
+    $post = $block->getEditRecord();
+    $helper = $this->helper('Ecommage\Blog\Helper\Data');
+    $arrOptions = $helper->getStatusOptions();
+    $isPublished = $helper->getPublishedVal();
+    if(!$post || (isset($post['status']) && !($post['status'] == $isPublished))) {
+        unset($arrOptions[$isPublished]);
+    }
+    $getValInput = fn($str = '') => isset($post[$str]) ? $post[$str] : '';
+?>
+
+<form class="form" id="insert_post" enctype="multipart/form-data" data-mage-init='{"validation":{}}'
+    method="post" action="<?= $block->getUrl('ecommage-blog/post/save')?>">
+    <?php if(count($post) > 0): ?>
+        <span>Created At:<?= $post['created_at'] ?></span><br><span>Updated At:<?= $post['created_at'] ?></span><br>
+        <input type="hidden" name="editRecordId" value="<?= $post['id'] ?>" data-validate="{required:true}">
+    <?php endif; ?>
+    <fieldset class="fieldset">
+        <div class="field required">
+            <label class="label"><span><?= __('Title') ?></span></label>
+            <div class="control">
+                <input name="title" type="text" title="<?= __('Title') ?>" value="<?= $getValInput('title') ?>"
+                class="input-text required-entry" required="true"  data-validate='{"required":true}'/>
+            </div>
+        </div>
+        <div class="field required">
+            <label class="label"><span><?= __('URL') ?></span></label>
+            <div class="control">
+                <input name="url_key" type="text" title="<?= __('URL') ?>" value="<?= $getValInput('url_key') ?>"
+                class="input-text required-entry" required="true" data-validate='{"required":true}'/>
+            </div>
+        </div>
+        <div class="field required">
+            <label class="label"><span><?= __('Status') ?></span></label>
+            <div class="control">
+            <select name="status" class="input-text required-entry" required="true"  data-validate='{"required":true}'>
+                <?php foreach($arrOptions as $k => $v): ?>
+                    <option class="<?= $v ?>" value="<?= $k ?>"><?= $v ?></option>
+                <?php endforeach; ?>
+            </select>
+            </div>
+        </div>
+        
+        <div class="field">
+            <label class="label"><span><?= __('Content') ?></span></label>
+            <div class="control">
+                <textarea name="content" rows="5" cols="33"
+                class="input-text"><?= $getValInput('content') ?></textarea>
+            </div>
+        </div>
+        
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" title="Submit" class="action submit primary">
+                <span>Submit</span>
+            </button>
+        </div>
+    </div>
+</form>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Ecommage_Blog/js/scripts": {}
+        }
+    }
+</script>

@@ -1,0 +1,25 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="ecommage_banner" comment="Ecommage Banners">
+        <column xsi:type="int" name="banner_id" padding="10" unsigned="true" identity="true" nullable="false" comment="Entity Id"/>
+        <column xsi:type="tinyint" name="status" unsigned="true" nullable="true" comment="Status"/>
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Title"/>
+        <column xsi:type="varchar" name="url_key" nullable="true" length="255" comment="Link"/>
+        <column xsi:type="varchar" name="image" nullable="true" length="255" comment="Image"/>
+        <column xsi:type="tinyint" name="is_schedule" unsigned="true" nullable="true" comment="Schedule"/>
+        <column xsi:type="datetime" name="schedule_from" on_update="false" nullable="true" comment="Schedule From"/>
+        <column xsi:type="datetime" name="schedule_to" on_update="false" nullable="true" comment="Schedule From"/>
+
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="banner_id"/>
+        </constraint>
+        <index referenceId="INDEX_ID" indexType="fulltext">
+           <column name="title"/>
+           <column name="url_key"/>
+       </index>
+   </table>
+</schema>
